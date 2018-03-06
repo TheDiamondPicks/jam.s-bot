@@ -2,6 +2,9 @@ import discord
 import logging
 import asyncio
 import time
+import aiohttp
+
+import config
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('discord')
@@ -18,21 +21,34 @@ bot = commands.Bot(command_prefix="!")
 message = discord.Message
 
 
-# @bot.event
-# async def on_ready():
-    # print('Private Voice Channel Bot connected. User: {0}'.format(bot.user))
+
 
 @bot.event
 async def on_ready():
     print(discord.__version__)
+    print("Alright bitches, she's all yours.")
 
 @bot.command(pass_context=True)
-async def accept(ctx):
+async def accept(ctx, afterlimit=7):
     role = discord.utils.get(ctx.message.server.roles, name='Full Access')
     if role in ctx.message.author.roles:
-        await bot.send_message(ctx.message.channel, "You already have full access.")
+        themsg = await bot.send_message(ctx.message.channel, 'You already have full access.')
+
+        await asyncio.sleep(afterlimit)
+        await bot.delete_message(ctx.message)
+        await bot.delete_message(themsg)
     else:
         await bot.add_roles(ctx.message.author, role)
-        await bot.send_message(ctx.message.author, 'You have been granted full access to JAM.S! Please follow the rules at all times.')
+        themsg = await bot.send_message(ctx.message.channel, 'You have been granted full access to JAM.S! Please follow the rules at all times.')
 
-bot.run('insert token here')
+        await asyncio.sleep(afterlimit)
+        await bot.delete_message(ctx.message)
+        await bot.delete_message(themsg)
+
+@bot.command(pass_context=True)
+async def animetiddy(ctx):
+    bleh = discord.Embed(title="Gross...", color=0xFF69B4)
+    bleh.set_image(url="https://xenorealms.com/rem/botmedia/bleh.gif")
+    await bot.send_message(ctx.message.channel, embed=bleh)
+
+bot.run(config.token)
