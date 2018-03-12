@@ -6,10 +6,10 @@ Personal bot mainly coded for JAM.S Discord server
 * discord.py (not rewrite, f that s)
 
 ## Installation & Setup
-1. Grab the source using `git clone https://github.com/Hotvinyl6347/jam.s-bot.git`
+1. Grab that source using `git clone https://github.com/Hotvinyl6347/jam.s-bot.git ~/jam.s-bot -b master`
 2. Get your bot's token from Discord's [Developers page](https://discordapp.com/developers)
 3. Place it in example_config.py
 4. RENAME the file to config.py
-5. Do `python3 aiir.py` in cmd prompt or terminal
+5. Do `python3 aiir.py` in cmd prompt
 
 u done
